@@ -1,0 +1,60 @@
+<app-header></app-header>
+
+<div class="browse-container">
+    @if (bannerMovie$ | async; as banner) {
+    <div class="hero-banner" [style.backgroundImage]="'url(' + banner.thumbnailUrl + ')'">
+        <div class="banner-content">
+            <h1 class="title">{{ banner.title }}</h1>
+            <p class="description">{{ banner.description }}</p>
+            <div class="banner-buttons">
+                <button class="play-btn"><i class="bi bi-play-fill"></i> Play</button>
+                <button class="info-btn" (click)="showDetails(banner)"><i class="bi bi-info-circle"></i> More
+                    Info</button>
+            </div>
+        </div>
+        <div class="banner-fade-bottom"></div>
+    </div>
+    }
+
+    <div class="content-rows">
+        <section class="row">
+            <h3>Popular on Netflix</h3>
+            <div class="row-posters">
+                @for (movie of popularMovies$ | async; track movie.id) {
+                <app-movie-card [content]="movie" (movieClick)="showDetails($event)"></app-movie-card>
+                }
+            </div>
+        </section>
+
+        <section class="row">
+            <h3>Trending Now</h3>
+            <div class="row-posters">
+                @for (movie of trendingMovies$ | async; track movie.id) {
+                <app-movie-card [content]="movie" (movieClick)="showDetails($event)"></app-movie-card>
+                }
+            </div>
+        </section>
+
+        <section class="row">
+            <h3>Now Playing</h3>
+            <div class="row-posters">
+                @for (movie of nowPlayingMovies$ | async; track movie.id) {
+                <app-movie-card [content]="movie" (movieClick)="showDetails($event)"></app-movie-card>
+                }
+            </div>
+        </section>
+
+        <section class="row">
+            <h3>Top Rated</h3>
+            <div class="row-posters">
+                @for (movie of topRatedMovies$ | async; track movie.id) {
+                <app-movie-card [content]="movie" (movieClick)="showDetails($event)"></app-movie-card>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+@if (selectedMovie) {
+<app-movie-dialog [movie]="selectedMovie" (close)="closeDetails()"></app-movie-dialog>
+}

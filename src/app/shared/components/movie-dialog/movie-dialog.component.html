@@ -1,0 +1,37 @@
+<div class="dialog-overlay" (click)="closeDialog()">
+    <div class="dialog-content" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="closeDialog()"><i class="bi bi-x-lg"></i></button>
+
+        <div class="dialog-banner" [style.backgroundImage]="'url(' + movie.thumbnailUrl + ')'">
+            <div class="banner-gradient"></div>
+            <div class="dialog-title">
+                <h1>{{ movie.title }}</h1>
+                <div class="dialog-actions">
+                    <button class="play-btn"><i class="bi bi-play-fill"></i> Play</button>
+                    <button class="add-btn"><i class="bi bi-plus"></i></button>
+                    <button class="like-btn"><i class="bi bi-hand-thumbs-up"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="dialog-info">
+            <div class="meta-row">
+                <span class="match-score">98% Match</span>
+                <span class="year">{{ movie.releaseDate | date:'yyyy' }}</span>
+                <span class="age-rating">TV-MA</span>
+                <span class="duration">2h 10m</span>
+                <span class="hd-badge">HD</span>
+            </div>
+
+            <div class="details-row">
+                <div class="description">
+                    <p>{{ movie.description }}</p>
+                </div>
+                <div class="tags">
+                    <p><span class="label">Cast:</span> Test Cast, Example Actor</p>
+                    <p><span class="label">Genres:</span> Action, Thriller</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<header class="header">
+    <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo">
+    </div>
+    <ul class="nav-links">
+        @for (item of navItems; track item) {
+        <li><a href="#">{{ item }}</a></li>
+        }
+    </ul>
+    <div class="secondary-nav">
+        <div class="user-profile" *ngIf="auth.currentUser() as user">
+            <img [src]="user.photoUrl" alt="User Profile">
+            <span class="carets"></span>
+        </div>
+    </div>
+</header>
