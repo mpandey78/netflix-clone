@@ -59,11 +59,34 @@ export class DbService extends Dexie {
     }
 
     async addPlaylist(playlist: Playlist) {
-        // Deactivate others if this one is active
-        if (playlist.isActive) {
-            await this.playlists.toCollection().modify({ isActive: false });
+        // Check if duplicate exists
+        const existing = await this.playlists
+            .filter(p => p.username === playlist.username && p.url === playlist.url)
+            .first();
+
+        // Deactivate others
+        await this.playlists.toCollection().modify({ isActive: false });
+
+        if (existing && existing.id) {
+            // Update existing
+            return await this.playlists.update(existing.id, {
+                password: playlist.password,
+                server_info: playlist.server_info,
+                isActive: true
+            });
+        } else {
+            // Add new
+            return await this.playlists.add({ ...playlist, isActive: true });
         }
-        return await this.playlists.add(playlist);
+    }
+
+    async getAllPlaylists() {
+        return await this.playlists.toArray();
+    }
+
+    async setPlaylistActive(id: number) {
+        await this.playlists.toCollection().modify({ isActive: false });
+        await this.playlists.update(id, { isActive: true });
     }
 
     async getActivePlaylist() {

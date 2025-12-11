@@ -52,6 +52,24 @@
                 }
             </div>
         </section>
+
+        <section class="row">
+            <h3>Live TV Channels</h3>
+            <div class="row-posters">
+                @for (tv of liveTv$ | async; track tv.id) {
+                <app-movie-card [content]="tv" (movieClick)="showDetails($event)"></app-movie-card>
+                }
+            </div>
+        </section>
+
+        <section class="row">
+            <h3>TV Series</h3>
+            <div class="row-posters">
+                @for (s of series$ | async; track s.id) {
+                <app-movie-card [content]="s" (movieClick)="showDetails($event)"></app-movie-card>
+                }
+            </div>
+        </section>
     </div>
 </div>
 

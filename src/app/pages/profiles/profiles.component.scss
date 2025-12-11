@@ -1,0 +1,75 @@
+.profiles-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #141414;
+    color: white;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+.profiles-grid {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    group: hover;
+}
+
+.profile-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    border: 3px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.profile-card:hover img {
+    border-color: white;
+}
+
+.profile-card span {
+    font-size: 1.2rem;
+    color: #808080;
+    transition: color 0.3s;
+}
+
+.profile-card:hover span {
+    color: white;
+}
+
+.add-profile .add-icon {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    /* OR square if you prefer strictly netflix */
+    border: 3px solid #808080;
+    /* Or just background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    color: #808080;
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+}
+
+.add-profile:hover .add-icon {
+    background-color: white;
+    color: black;
+    border-color: white;
+}

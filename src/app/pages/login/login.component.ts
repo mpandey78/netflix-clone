@@ -14,14 +14,15 @@ import { AuthService } from '../../core/services/auth.service';
 export class LoginComponent {
   email = '';
   password = '';
-  url = 'http://line.crystalott.net'; // Default/Example
+  url = 'https://main.vpnconnection.net';
+  playlistName = '';
   auth = inject(AuthService);
   router = inject(Router);
 
   onSubmit() {
-    if (this.email && this.password && this.url) {
-      this.auth.login(this.url, this.email, this.password);
-      // navigation handles in auth service
+    if (this.email && this.password && this.url && this.playlistName) {
+      this.auth.login(this.url, this.email, this.password, this.playlistName);
+      // navigation handles in auth service (to profiles)
     }
   }
 }

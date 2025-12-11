@@ -23,6 +23,8 @@ export class BrowseComponent implements OnInit {
   topRatedMovies$: Observable<VideoContent[]> | null = null;
   trendingMovies$: Observable<VideoContent[]> | null = null;
   nowPlayingMovies$: Observable<VideoContent[]> | null = null;
+  liveTv$: Observable<VideoContent[]> | null = null;
+  series$: Observable<VideoContent[]> | null = null;
 
   bannerMovie$: Observable<VideoContent | undefined> | null = null;
   selectedMovie: VideoContent | null = null;
@@ -32,6 +34,8 @@ export class BrowseComponent implements OnInit {
     this.topRatedMovies$ = this.contentService.getTopRated();
     this.trendingMovies$ = this.contentService.getTrending();
     this.nowPlayingMovies$ = this.contentService.getNowPlaying();
+    this.liveTv$ = this.contentService.getLiveTv();
+    this.series$ = this.contentService.getAppOriginals();
 
     // Pick the first popular movie as banner
     this.bannerMovie$ = this.popularMovies$.pipe(

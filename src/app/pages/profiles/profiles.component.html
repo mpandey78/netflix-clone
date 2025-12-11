@@ -1,0 +1,14 @@
+<div class="profiles-container">
+    <h1>Who's Watching?</h1>
+    <div class="profiles-grid">
+        <div class="profile-card" *ngFor="let playlist of playlists" (click)="selectProfile(playlist)">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="Profile">
+            <span>{{ playlist.name }}</span>
+        </div>
+
+        <div class="profile-card add-profile" (click)="addProfile()">
+            <div class="add-icon">+</div>
+            <span>Add Profile</span>
+        </div>
+    </div>
+</div>
