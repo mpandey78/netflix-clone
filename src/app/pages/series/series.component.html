@@ -1,0 +1,16 @@
+<div class="page-container">
+    <h1>All Series</h1>
+
+    <div class="grid-container" *ngIf="series$ | async as series; else loading">
+        <app-movie-card *ngFor="let item of series; trackBy: trackByFn" [content]="item"
+            (movieClick)="showDetails($event)"></app-movie-card>
+    </div>
+
+    <ng-template #loading>
+        <div class="loading">Loading Series...</div>
+    </ng-template>
+</div>
+
+@if (selectedMovie) {
+<app-movie-dialog [movie]="selectedMovie" (close)="closeDetails()"></app-movie-dialog>
+}

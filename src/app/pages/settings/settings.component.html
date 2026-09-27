@@ -1,0 +1,25 @@
+<div class="settings-container">
+    <h1>Settings</h1>
+
+    <div class="settings-card">
+        <div class="user-info" *ngIf="auth.currentUser() as user">
+            <p>Current Profile: <strong>{{ user.name }}</strong></p>
+        </div>
+
+        <div class="actions">
+            <button class="setting-btn primary" (click)="refreshData()" [disabled]="isLoading">
+                <i class="bi bi-arrow-repeat"></i> {{ isLoading ? 'Starting...' : 'Refresh Playlist Data' }}
+            </button>
+            <div class="section-item danger" (click)="logout()">
+                <span>Sign out of all devices</span>
+            </div>
+        </div>
+
+        <app-message-modal *ngIf="showConfirmModal" title="Refresh Data"
+            message="Are you sure you want to re-download all data? This might take a while." confirmText="Refresh"
+            cancelText="Cancel" (confirm)="onConfirmRefresh()" (cancel)="showConfirmModal = false">
+        </app-message-modal>
+    </div>
+
+    <button class="back-btn" (click)="goBack()">Back to Browse</button>
+</div>

@@ -2,24 +2,23 @@
     <div class="dialog-content" (click)="$event.stopPropagation()">
         <button class="close-btn" (click)="closeDialog()"><i class="bi bi-x-lg"></i></button>
 
-        <div class="dialog-banner" [class.playing]="isPlaying">
-            @if (isPlaying) {
-            <div class="video-container">
-                <video #videoPlayer controls autoplay class="video-player"></video>
-            </div>
-            } @else {
+        <div class="dialog-banner">
             <div class="banner-image" [style.backgroundImage]="'url(' + movie.thumbnailUrl + ')'">
                 <div class="banner-gradient"></div>
                 <div class="dialog-title">
                     <h1>{{ movie.title }}</h1>
                     <div class="dialog-actions">
                         <button class="play-btn" (click)="playVideo()"><i class="bi bi-play-fill"></i> Play</button>
-                        <button class="add-btn"><i class="bi bi-plus"></i></button>
-                        <button class="like-btn"><i class="bi bi-hand-thumbs-up"></i></button>
+                        <button class="add-btn" (click)="toggleFavorite()" title="Add to Favorites">
+                            <i class="bi" [class.bi-heart]="!isFavorite" [class.bi-heart-fill]="isFavorite"></i>
+                        </button>
+                        <button class="like-btn" (click)="toggleFavorite()">
+                            <i class="bi" [class.bi-hand-thumbs-up]="!isFavorite"
+                                [class.bi-hand-thumbs-up-fill]="isFavorite"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-            }
         </div>
 
         <div class="dialog-info">

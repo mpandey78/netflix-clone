@@ -1,0 +1,16 @@
+<div class="page-container">
+    <h1>All Movies</h1>
+
+    <div class="grid-container" *ngIf="movies$ | async as movies; else loading">
+        <app-movie-card *ngFor="let movie of movies; trackBy: trackByFn" [content]="movie"
+            (movieClick)="showDetails($event)"></app-movie-card>
+    </div>
+
+    <ng-template #loading>
+        <div class="loading">Loading Movies...</div>
+    </ng-template>
+</div>
+
+@if (selectedMovie) {
+<app-movie-dialog [movie]="selectedMovie" (close)="closeDetails()"></app-movie-dialog>
+}

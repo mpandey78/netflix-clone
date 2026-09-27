@@ -2,8 +2,25 @@
     <h1>Who's Watching?</h1>
     <div class="profiles-grid">
         <div class="profile-card" *ngFor="let playlist of playlists" (click)="selectProfile(playlist)">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="Profile">
+            <div class="avatar-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="Profile">
+                <div class="loading-overlay" *ngIf="loadingId === playlist.id">
+                    <div class="spinner"></div>
+                </div>
+                <div class="type-badge">{{ playlist.type === 'm3u' ? 'M3U' : 'XTREAM' }}</div>
+            </div>
             <span>{{ playlist.name }}</span>
+            <div class="actions">
+                <button class="action-btn" (click)="refreshProfile($event, playlist)" title="Refresh Playlist Data">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+                <button class="action-btn" (click)="editProfile($event, playlist)" title="Edit Profile">
+                    <i class="bi bi-pencil-fill"></i>
+                </button>
+                <button class="action-btn delete-btn" (click)="deleteProfile($event, playlist)" title="Delete Profile">
+                    <i class="bi bi-trash3-fill"></i>
+                </button>
+            </div>
         </div>
 
         <div class="profile-card add-profile" (click)="addProfile()">
@@ -12,3 +29,90 @@
         </div>
     </div>
 </div>
+
+<!-- Loading Overlay -->
+<div class="full-loading-overlay" *ngIf="showLoadingOverlay">
+    <div class="circles-container" *ngIf="overlayPlaylist?.type !== 'm3u'">
+        <div class="loader-circle">
+            <div class="circle-progress" [class.completed]="liveStatus === 'completed'"
+                [class.loading]="liveStatus === 'loading'"></div>
+            <div class="content">
+                <h3>Live TV</h3>
+                <p>{{ liveStatus === 'completed' ? 'Done' : 'Downloading...' }}</p>
+            </div>
+        </div>
+
+        <div class="loader-circle">
+            <div class="circle-progress" [class.completed]="moviesStatus === 'completed'"
+                [class.loading]="moviesStatus === 'loading'"></div>
+            <div class="content">
+                <h3>Movies</h3>
+                <p>{{ moviesStatus === 'completed' ? 'Done' : 'Downloading...' }}</p>
+            </div>
+        </div>
+
+        <div class="loader-circle">
+            <div class="circle-progress" [class.completed]="seriesStatus === 'completed'"
+                [class.loading]="seriesStatus === 'loading'"></div>
+            <div class="content">
+                <h3>Series</h3>
+                <p>{{ seriesStatus === 'completed' ? 'Done' : 'Downloading...' }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="circles-container" *ngIf="overlayPlaylist?.type === 'm3u'">
+        <div class="loader-circle">
+            <div class="circle-progress completed"></div>
+            <div class="content">
+                <h3>Loading...</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-footer">
+        <div class="spinner-small"
+            *ngIf="moviesStatus !== 'completed' || seriesStatus !== 'completed' || liveStatus !== 'completed'"></div>
+        <span>PLEASE WAIT...</span>
+        <button class="skip-btn" (click)="skipLoading()">SKIP</button>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="edit-modal-overlay" *ngIf="showEditModal">
+    <div class="edit-modal">
+        <h2>Edit Profile</h2>
+        <form (submit)="saveProfile()">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" [(ngModel)]="editData.name" name="editName" required>
+            </div>
+
+            <div class="form-group">
+                <label>URL</label>
+                <input type="text" [(ngModel)]="editData.url" name="editUrl" required>
+            </div>
+
+            <ng-container *ngIf="editData.type !== 'm3u'">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" [(ngModel)]="editData.username" name="editUser">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" [(ngModel)]="editData.password" name="editPass">
+                </div>
+            </ng-container>
+
+            <div class="modal-actions">
+                <button type="button" class="cancel-btn" (click)="closeEditModal()">Cancel</button>
+                <button type="submit" class="save-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<app-message-modal *ngIf="showDeleteModal" title="Delete Profile"
+    [message]="'Are you sure you want to delete profile \'' + profileToDelete?.name + '\'? This cannot be undone.'"
+    confirmText="Delete" cancelText="Cancel" (confirm)="confirmDelete()" (cancel)="showDeleteModal = false">
+</app-message-modal>

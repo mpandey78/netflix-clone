@@ -12,7 +12,9 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end; // Push content to bottom
+    align-items: flex-start; // Align left
+    padding-bottom: 250px; // Clear the overlap from rows
 
     .banner-content {
         margin-left: 60px; // More left margin
@@ -134,7 +136,16 @@
             app-movie-card {
                 flex: 0 0 auto;
                 width: 16%; // Responsive width
-                min-width: 200px;
+                min-width: 150px; // Smaller min-width for portraits
+
+                &.portrait {
+                    min-width: 180px;
+                }
+
+                &.square {
+                    min-width: 160px;
+                }
+
                 transition: transform 300ms;
 
                 // Card specific styles are in movie-card component

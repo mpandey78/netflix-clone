@@ -4,23 +4,47 @@
     </div>
     <div class="login-body">
         <div class="login-box">
-            <h2>Sign In</h2>
+            <h2>{{ isM3UMode ? 'Import Playlist' : 'Sign In' }}</h2>
             <form (ngSubmit)="onSubmit()">
-                <div class="input-group">
-                    <input type="text" placeholder="Playlist Name" [(ngModel)]="playlistName" name="playlistName"
-                        required>
-                </div>
-                <div class="input-group">
-                    <input type="text" placeholder="Server URL (http://example.com:8080)" [(ngModel)]="url" name="url"
-                        required>
-                </div>
-                <div class="input-group">
-                    <input type="text" placeholder="Username" [(ngModel)]="email" name="email" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
-                </div>
-                <button type="submit" class="sign-in-btn">Sign In</button>
+                <!-- XTREAM MODE -->
+                <ng-container *ngIf="!isM3UMode">
+                    <div class="input-group">
+                        <input type="text" placeholder="Playlist Name" [(ngModel)]="playlistName" name="playlistName"
+                            required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" placeholder="Server URL (http://example.com:8080)" [(ngModel)]="url"
+                            name="url" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" placeholder="Username" [(ngModel)]="email" name="email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
+                    </div>
+                </ng-container>
+
+                <!-- M3U MODE -->
+                <ng-container *ngIf="isM3UMode">
+                    <div class="input-group">
+                        <input type="text" placeholder="Playlist Name" [(ngModel)]="m3uName" name="m3uName" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" placeholder="M3U URL (https://example.com/file.m3u)" [(ngModel)]="m3uUrl"
+                            name="m3uUrl" required>
+                    </div>
+                </ng-container>
+
+                <button type="submit" class="sign-in-btn">
+                    {{ isM3UMode ? 'Import M3U' : 'Sign In' }}
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm ms-2"></span>
+                </button>
+
+                <button type="button" class="sign-in-btn secondary" (click)="toggleMode()" style="margin-top: 10px;">
+                    {{ isM3UMode ? 'Use Xtream Codes Login' : 'Import M3U Playlist' }}
+                </button>
+                <button type="button" class="sign-in-btn secondary" *ngIf="hasPlaylists" (click)="goToProfiles()"
+                    style="margin-top: 10px; background-color: #333;">Cancel (Go to Profiles)</button>
                 <div class="support">
                     <div class="remember">
                         <input type="checkbox" id="rememberMe">
@@ -33,5 +57,73 @@
                 <p>New to Netflix? <a href="#">Sign up now</a>.</p>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="promo-section">
+    <div class="promo-text">
+        <h1>Enjoy on your TV</h1>
+        <p>Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</p>
+    </div>
+    <div class="promo-img">
+        <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/tv.png" alt="TV">
+        <div class="video-container">
+            <app-promo-player [url]="env.landingVideoUrl"></app-promo-player>
+        </div>
+    </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="promo-section reverse">
+    <div class="promo-img">
+        <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/mobile-0819.jpg" alt="Mobile">
+        <div class="download-box">
+            <div class="box-image">
+                <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/boxshot.png"
+                    alt="Stranger Things">
+            </div>
+            <div class="box-text">
+                <div class="text-0">Stranger Things</div>
+                <div class="text-1">Downloading...</div>
+            </div>
+            <div class="download-gif"></div>
+        </div>
+    </div>
+    <div class="promo-text">
+        <h1>Download your shows to watch offline.</h1>
+        <p>Save your favorites easily and always have something to watch.</p>
+    </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="promo-section">
+    <div class="promo-text">
+        <h1>Watch everywhere.</h1>
+        <p>Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.</p>
+    </div>
+    <div class="promo-img">
+        <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/device-pile-in.png"
+            alt="Device Pile">
+        <div class="video-container" style="top: 10%; left: 18%; width: 63%; height: 47%;">
+            <app-promo-player [url]="env.landingVideoUrl"></app-promo-player>
+        </div>
+    </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="promo-section reverse">
+    <div class="promo-img">
+        <img src="https://occ-0-2087-2164.1.nflxso.net/dnm/api/v6/19OhWN2dO19C9txTON9tvTFtefw/AAAABVxdX2WnFSp49eXb1do0euaj-F8upNImjofE77XStKhf5kUHG94DPlTiGYqPeYNtiox-82NWEK0Ls3CnLe3WWClGdiJP.png?r=5cf"
+            alt="Kids">
+    </div>
+    <div class="promo-text">
+        <h1>Create profiles for kids.</h1>
+        <p>Send children on adventures with their favorite characters in a space made just for them—free with your
+            membership.</p>
     </div>
 </div>

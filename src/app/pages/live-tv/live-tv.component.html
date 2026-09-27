@@ -1,0 +1,16 @@
+<div class="page-container">
+    <h1>Live TV Channels</h1>
+
+    <div class="grid-container" *ngIf="liveTv$ | async as channels; else loading">
+        <app-movie-card *ngFor="let item of channels; trackBy: trackByFn" [content]="item"
+            (movieClick)="showDetails($event)"></app-movie-card>
+    </div>
+
+    <ng-template #loading>
+        <div class="loading">Loading Live TV...</div>
+    </ng-template>
+</div>
+
+@if (selectedMovie) {
+<app-movie-dialog [movie]="selectedMovie" (close)="closeDetails()"></app-movie-dialog>
+}

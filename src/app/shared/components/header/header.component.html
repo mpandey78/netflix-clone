@@ -8,7 +8,13 @@
         }
     </ul>
     <div class="secondary-nav">
+        <div class="search-box">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Titles, people, genres" [(ngModel)]="searchTerm" (keyup.enter)="onSearch()">
+        </div>
         <div class="user-profile" *ngIf="auth.currentUser() as user">
+            <a routerLink="/settings" style="color: white; margin-right: 15px; font-size: 1.2rem;" title="Settings"><i
+                    class="bi bi-gear-fill"></i></a>
             <img [src]="user.photoUrl" alt="User Profile">
             <span class="carets"></span>
         </div>

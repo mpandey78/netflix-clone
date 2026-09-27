@@ -17,11 +17,22 @@
     }
 
     <div class="content-rows">
+        @if ((favorites$ | async)?.length) {
+        <section class="row">
+            <h3>My List</h3>
+            <div class="row-posters">
+                @for (movie of favorites$ | async; track movie.id) {
+                <app-movie-card [content]="movie" layout="portrait" (movieClick)="showDetails($event)"></app-movie-card>
+                }
+            </div>
+        </section>
+        }
+
         <section class="row">
             <h3>Popular on Netflix</h3>
             <div class="row-posters">
                 @for (movie of popularMovies$ | async; track movie.id) {
-                <app-movie-card [content]="movie" (movieClick)="showDetails($event)"></app-movie-card>
+                <app-movie-card [content]="movie" layout="portrait" (movieClick)="showDetails($event)"></app-movie-card>
                 }
             </div>
         </section>
@@ -30,7 +41,8 @@
             <h3>Trending Now</h3>
             <div class="row-posters">
                 @for (movie of trendingMovies$ | async; track movie.id) {
-                <app-movie-card [content]="movie" (movieClick)="showDetails($event)"></app-movie-card>
+                <app-movie-card [content]="movie" layout="landscape"
+                    (movieClick)="showDetails($event)"></app-movie-card>
                 }
             </div>
         </section>
@@ -39,7 +51,7 @@
             <h3>Now Playing</h3>
             <div class="row-posters">
                 @for (movie of nowPlayingMovies$ | async; track movie.id) {
-                <app-movie-card [content]="movie" (movieClick)="showDetails($event)"></app-movie-card>
+                <app-movie-card [content]="movie" layout="portrait" (movieClick)="showDetails($event)"></app-movie-card>
                 }
             </div>
         </section>
@@ -48,7 +60,7 @@
             <h3>Top Rated</h3>
             <div class="row-posters">
                 @for (movie of topRatedMovies$ | async; track movie.id) {
-                <app-movie-card [content]="movie" (movieClick)="showDetails($event)"></app-movie-card>
+                <app-movie-card [content]="movie" layout="portrait" (movieClick)="showDetails($event)"></app-movie-card>
                 }
             </div>
         </section>
@@ -57,7 +69,7 @@
             <h3>Live TV Channels</h3>
             <div class="row-posters">
                 @for (tv of liveTv$ | async; track tv.id) {
-                <app-movie-card [content]="tv" (movieClick)="showDetails($event)"></app-movie-card>
+                <app-movie-card [content]="tv" layout="square" (movieClick)="showDetails($event)"></app-movie-card>
                 }
             </div>
         </section>
@@ -66,7 +78,7 @@
             <h3>TV Series</h3>
             <div class="row-posters">
                 @for (s of series$ | async; track s.id) {
-                <app-movie-card [content]="s" (movieClick)="showDetails($event)"></app-movie-card>
+                <app-movie-card [content]="s" layout="portrait" (movieClick)="showDetails($event)"></app-movie-card>
                 }
             </div>
         </section>

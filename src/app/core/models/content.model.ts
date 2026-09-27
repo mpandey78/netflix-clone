@@ -7,6 +7,7 @@ export interface VideoContent {
     duration: string;
     genre: string[];
     isOriginal: boolean;
+    type: 'movie' | 'series' | 'live';
     releaseDate: Date;
     rating: number;
 }
@@ -16,4 +17,5 @@ export interface User {
     name: string;
     email: string;
     photoUrl: string;
+    type?: 'xtream' | 'm3u';
 }

@@ -1,0 +1,20 @@
+<div class="page-container">
+    <h1>My List</h1>
+
+    <div class="grid-container" *ngIf="favorites$ | async as favorites; else loading">
+        <app-movie-card *ngFor="let item of favorites; trackBy: trackByFn" [content]="item" layout="portrait"
+            (movieClick)="showDetails($event)"></app-movie-card>
+
+        <div class="no-content" *ngIf="favorites.length === 0">
+            <p>You haven't added any titles to your list yet.</p>
+        </div>
+    </div>
+
+    <ng-template #loading>
+        <div class="loading">Loading your list...</div>
+    </ng-template>
+</div>
+
+@if (selectedMovie) {
+<app-movie-dialog [movie]="selectedMovie" (close)="closeDetails()"></app-movie-dialog>
+}

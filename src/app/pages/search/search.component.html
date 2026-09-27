@@ -1,0 +1,16 @@
+<div class="page-container">
+    <h1>Search Results for "{{ searchQuery }}"</h1>
+
+    <div class="grid-container" *ngIf="searchResults$ | async as results; else loading">
+        <app-movie-card *ngFor="let item of results" [content]="item"
+            (movieClick)="showDetails($event)"></app-movie-card>
+
+        <div class="no-results" *ngIf="results.length === 0 && searchQuery">
+            <p>No matches found for "{{ searchQuery }}".</p>
+        </div>
+    </div>
+
+    <ng-template #loading>
+        <div class="loading">Searching...</div>
+    </ng-template>
+</div>

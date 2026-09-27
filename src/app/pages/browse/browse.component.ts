@@ -25,6 +25,7 @@ export class BrowseComponent implements OnInit {
   nowPlayingMovies$: Observable<VideoContent[]> | null = null;
   liveTv$: Observable<VideoContent[]> | null = null;
   series$: Observable<VideoContent[]> | null = null;
+  favorites$: Observable<VideoContent[]> | null = null;
 
   bannerMovie$: Observable<VideoContent | undefined> | null = null;
   selectedMovie: VideoContent | null = null;
@@ -36,6 +37,7 @@ export class BrowseComponent implements OnInit {
     this.nowPlayingMovies$ = this.contentService.getNowPlaying();
     this.liveTv$ = this.contentService.getLiveTv();
     this.series$ = this.contentService.getAppOriginals();
+    this.favorites$ = this.contentService.getFavorites();
 
     // Pick the first popular movie as banner
     this.bannerMovie$ = this.popularMovies$.pipe(
@@ -49,5 +51,9 @@ export class BrowseComponent implements OnInit {
 
   closeDetails() {
     this.selectedMovie = null;
+  }
+
+  trackByFn(index: number, item: VideoContent): number {
+    return item.id;
   }
 }

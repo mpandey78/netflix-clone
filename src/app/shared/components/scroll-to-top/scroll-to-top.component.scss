@@ -1,0 +1,40 @@
+.scroll-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #e50914;
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        background-color: #b20710;
+        transform: translateY(-5px);
+    }
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+        bottom: 70px; // avoid blocking navigation on mobile if bottom nav exists, or just to be higher
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}

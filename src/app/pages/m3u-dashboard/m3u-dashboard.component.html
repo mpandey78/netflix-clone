@@ -1,0 +1,22 @@
+<app-header></app-header>
+
+<div class="page-container">
+    <h1>All Channels</h1>
+
+    <div class="grid-container" *ngIf="channels$ | async as channels; else loading">
+        <app-movie-card *ngFor="let item of channels; trackBy: trackByFn" [content]="item" layout="square"
+            (movieClick)="showDetails($event)"></app-movie-card>
+
+        <div class="no-content" *ngIf="channels.length === 0">
+            <p>No channels found in this playlist.</p>
+        </div>
+    </div>
+
+    <ng-template #loading>
+        <div class="loading">Loading Channels...</div>
+    </ng-template>
+</div>
+
+@if (selectedMovie) {
+<app-movie-dialog [movie]="selectedMovie" (close)="closeDetails()"></app-movie-dialog>
+}
