@@ -255,6 +255,10 @@
                     left: 8px;
                     width: 16px;
                     z-index: 10;
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
                 }
             }
         }

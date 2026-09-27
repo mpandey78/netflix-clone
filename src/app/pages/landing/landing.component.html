@@ -45,7 +45,7 @@
             <div class="movie-row">
                 @for (movie of trendingMovies$ | async; track movie.id; let i = $index) {
                 <div class="trending-card" (click)="openModal(movie)">
-                    <div class="n-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="N"></div>
+                    <div class="n-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Netflix_2015_N_logo.svg" alt="N"></div>
                     <span class="rank-number">{{ i + 1 }}</span>
                     <img class="poster-img" [src]="movie.thumbnailUrl" [alt]="movie.title">
                 </div>
