@@ -1,0 +1,47 @@
+<app-header></app-header>
+
+<div class="browse-container">
+    <div *ngIf="heroMovie$ | async as hero" class="hero-banner" [style.backgroundImage]="'url(' + hero.thumbnailUrl + ')'">
+        <div class="banner-content">
+            <h1 class="title">{{ hero.title }}</h1>
+            <p class="description">{{ hero.description }}</p>
+            <div class="banner-buttons">
+                <button class="play-btn" (click)="showDetails(hero)"><i class="bi bi-play-fill"></i> Play</button>
+                <button class="info-btn" (click)="showDetails(hero)"><i class="bi bi-info-circle"></i> More Info</button>
+            </div>
+        </div>
+        <div class="banner-fade-bottom"></div>
+    </div>
+
+    <div class="content-rows">
+        <section class="row">
+            <h3>Trending Now</h3>
+            <div class="row-posters">
+                <app-movie-card *ngFor="let movie of trendingMovies$ | async" [content]="movie" layout="landscape" (movieClick)="showDetails($event)"></app-movie-card>
+            </div>
+        </section>
+
+        <section class="row">
+            <h3>Popular Series</h3>
+            <div class="row-posters">
+                <app-movie-card *ngFor="let series of series$ | async" [content]="series" layout="portrait" (movieClick)="showDetails($event)"></app-movie-card>
+            </div>
+        </section>
+
+        <section class="row">
+            <h3>Hit Movies</h3>
+            <div class="row-posters">
+                <app-movie-card *ngFor="let m of movies$ | async" [content]="m" layout="portrait" (movieClick)="showDetails($event)"></app-movie-card>
+            </div>
+        </section>
+
+        <section class="row">
+            <h3>Live TV</h3>
+            <div class="row-posters">
+                <app-movie-card *ngFor="let tv of liveTv$ | async" [content]="tv" layout="landscape" (movieClick)="showDetails($event)"></app-movie-card>
+            </div>
+        </section>
+    </div>
+</div>
+
+<app-movie-dialog *ngIf="selectedMovie" [movie]="selectedMovie" (close)="closeDetails()"></app-movie-dialog>
