@@ -218,30 +218,35 @@
                 height: 252px; // 1:1.4 aspect
                 transition: transform 0.3s;
                 cursor: pointer;
-                margin-left: 20px; // Offset for number
+                margin-left: 50px; // Offset for number
 
                 &:hover {
                     transform: scale(1.05);
                     z-index: 2;
                 }
 
-                img {
+                .poster-img {
+                    position: relative;
+                    z-index: 1;
                     width: 100%;
                     height: 100%;
                     border-radius: 8px;
                     object-fit: cover;
+                    box-shadow: 0 0 15px rgba(0,0,0,0.6);
                 }
 
                 .rank-number {
                     position: absolute;
-                    bottom: 0;
-                    left: -30px; // Hang off the left
-                    font-size: 100px;
+                    bottom: -20px;
+                    left: -50px; // Hang off the left
+                    font-size: 200px;
                     font-weight: 900;
-                    line-height: 0.8;
-                    z-index: 10;
+                    font-family: 'Arial Black', Impact, sans-serif;
+                    line-height: 1;
+                    z-index: 0;
                     color: black;
-                    -webkit-text-stroke: 2px white;
+                    -webkit-text-stroke: 3px white;
+                    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
                 }
 
                 .n-logo {
@@ -285,84 +290,67 @@
     }
 }
 
-.promo {
+.reasons-section {
     background: black;
     color: white;
-    border-top: 8px solid #232323;
     padding: 70px 45px;
+    z-index: 20;
+    position: relative;
 
-    .promo-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .reasons-container {
         max-width: 1100px;
         margin: 0 auto;
 
-        .promo-text {
-            flex: 1;
-            padding-right: 48px;
-            padding-left: 0;
-
-            h2 {
-                font-size: 3rem;
-                font-weight: 900;
-                margin-bottom: 16px;
-            }
-
-            p {
-                font-size: 1.5rem;
-                font-weight: 400;
-            }
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 24px;
         }
 
-        .promo-img {
-            flex: 1;
-            position: relative;
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
 
-            img {
-                width: 100%;
+            .reason-card {
+                background: linear-gradient(135deg, #1d0f36 0%, #0d061a 100%);
+                border-radius: 16px;
+                padding: 24px;
                 position: relative;
-                z-index: 10;
-            }
+                min-height: 250px;
+                display: flex;
+                flex-direction: column;
 
-            .video-container {
-                position: absolute;
-                top: 21%;
-                left: 13%;
-                width: 73%;
-                height: 54%;
-                z-index: 5;
-                overflow: hidden;
-            }
-        }
-    }
+                h3 {
+                    font-size: 1.25rem;
+                    font-weight: 500;
+                    margin-bottom: 12px;
+                }
 
-    &.reverse {
-        .promo-container {
-            flex-direction: row-reverse;
+                p {
+                    font-size: 0.9rem;
+                    color: #b3b3b3;
+                    line-height: 1.4;
+                }
 
-            .promo-text {
-                padding-right: 0;
-                padding-left: 48px;
+                .reason-icon {
+                    position: absolute;
+                    bottom: 24px;
+                    right: 24px;
+                    font-size: 2rem;
+                    color: #fff;
+                    opacity: 0.7;
+                }
             }
         }
     }
 }
 
 @media (max-width: 960px) {
-    .promo {
-        .promo-container {
-            flex-direction: column !important;
-            text-align: center;
-
-            .promo-text {
-                padding-right: 0 !important;
-                padding-left: 0 !important;
-                margin-bottom: 20px;
-            }
-        }
+    .reasons-section .reasons-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
-
+    
     .hero-content {
         h1 {
             font-size: 2rem;
@@ -376,6 +364,12 @@
                 width: 100%;
             }
         }
+    }
+}
+
+@media (max-width: 600px) {
+    .reasons-section .reasons-grid {
+        grid-template-columns: 1fr;
     }
 }
 
