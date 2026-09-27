@@ -93,68 +93,68 @@
         font-size: 1.25rem;
         margin-bottom: 24px;
     }
+}
 
-    .email-form {
-        display: flex;
-        flex-direction: row;
-        gap: 8px;
-        width: 100%;
-        max-width: 580px;
+.email-form {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    width: 100%;
+    max-width: 580px;
 
-        .input-container {
-            position: relative;
-            flex-grow: 1;
+    .input-container {
+        position: relative;
+        flex-grow: 1;
 
-            input {
-                width: 100%;
-                height: 56px;
-                padding: 24px 16px 8px;
-                border-radius: 4px;
-                border: 1px solid #5e5d5d;
-                background: rgba(22, 22, 22, 0.7);
-                color: white;
-                font-size: 1rem;
+        input {
+            width: 100%;
+            height: 56px;
+            padding: 24px 24px 8px;
+            border-radius: 30px;
+            border: 1px solid #5e5d5d;
+            background: rgba(22, 22, 22, 0.7);
+            color: white;
+            font-size: 1rem;
 
-                &:focus {
-                    outline: 2px solid white;
-                    outline-offset: 2px;
-                }
-
-                &:focus+label,
-                &:not(:placeholder-shown)+label {
-                    font-size: 0.75rem;
-                    top: 12px;
-                }
+            &:focus {
+                outline: 2px solid white;
+                outline-offset: 2px;
             }
 
-            label {
-                position: absolute;
-                left: 16px;
-                top: 50%;
-                transform: translateY(-50%);
-                color: #b3b3b3;
-                transition: all 0.1s ease;
-                pointer-events: none;
+            &:focus+label,
+            &:not(:placeholder-shown)+label {
+                font-size: 0.75rem;
+                top: 12px;
             }
         }
 
-        .get-started-btn {
-            background-color: #e50914;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1.5rem;
-            font-weight: 500;
-            padding: 12px 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            white-space: nowrap;
+        label {
+            position: absolute;
+            left: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #b3b3b3;
+            transition: all 0.1s ease;
+            pointer-events: none;
+        }
+    }
 
-            &:hover {
-                background-color: #c11119;
-            }
+    .get-started-btn {
+        background-color: #e50914;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-size: 1.5rem;
+        font-weight: 500;
+        padding: 12px 32px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        white-space: nowrap;
+
+        &:hover {
+            background-color: #c11119;
         }
     }
 }
@@ -238,16 +238,18 @@
                     left: -30px; // Hang off the left
                     font-size: 100px;
                     font-weight: 900;
-                    color: black;
-                    -webkit-text-stroke: 2px #595959; // Outline effect
-                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
                     line-height: 0.8;
-                    z-index: -1; // Behind the card? No, usually overlays or side. 
-                    // Netflix style: Number is big, on the left, card overlaps part of it.
-                    // Let's try to simulate that visual hierarchy.
                     z-index: 10;
-                    color: #000;
-                    -webkit-text-stroke: 4px #595959;
+                    color: black;
+                    -webkit-text-stroke: 2px white;
+                }
+
+                .n-logo {
+                    position: absolute;
+                    top: 8px;
+                    left: 8px;
+                    width: 16px;
+                    z-index: 10;
                 }
             }
         }
@@ -299,6 +301,7 @@
         .promo-text {
             flex: 1;
             padding-right: 48px;
+            padding-left: 0;
 
             h2 {
                 font-size: 3rem;
@@ -333,16 +336,30 @@
             }
         }
     }
+
+    &.reverse {
+        .promo-container {
+            flex-direction: row-reverse;
+
+            .promo-text {
+                padding-right: 0;
+                padding-left: 48px;
+            }
+        }
+    }
 }
 
 @media (max-width: 960px) {
-    .promo-container {
-        flex-direction: column;
-        text-align: center;
+    .promo {
+        .promo-container {
+            flex-direction: column !important;
+            text-align: center;
 
-        .promo-text {
-            padding-right: 0;
-            margin-bottom: 20px;
+            .promo-text {
+                padding-right: 0 !important;
+                padding-left: 0 !important;
+                margin-bottom: 20px;
+            }
         }
     }
 
@@ -359,5 +376,239 @@
                 width: 100%;
             }
         }
+    }
+}
+
+    .disclaimer {
+        padding: 20px;
+        text-align: center;
+        background-color: #000;
+        color: #888;
+        font-size: 0.9rem;
+        border-top: 1px solid #333;
+        
+        p {
+            margin: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    }
+
+    .faq-section {
+        background: black;
+        color: white;
+        border-top: 8px solid #232323;
+        padding: 70px 45px;
+
+        .faq-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            h2 {
+                font-size: 3rem;
+                font-weight: 900;
+                margin-bottom: 24px;
+                text-align: center;
+            }
+
+            .faq-list {
+                width: 100%;
+                margin-bottom: 40px;
+
+                details {
+                    margin-bottom: 8px;
+                    background-color: #2d2d2d;
+                    transition: background-color 0.2s;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #414141;
+                    }
+
+                    &[open] {
+                        summary i {
+                            transform: rotate(45deg);
+                        }
+                    }
+
+                    summary {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 24px;
+                        font-size: 1.5rem;
+                        font-weight: 500;
+                        list-style: none; // Remove default arrow
+
+                        &::-webkit-details-marker {
+                            display: none; // Remove arrow in WebKit
+                        }
+
+                        i {
+                            font-size: 2rem;
+                            transition: transform 0.2s;
+                        }
+                    }
+
+                    .faq-content {
+                        padding: 24px;
+                        border-top: 1px solid black;
+                        font-size: 1.5rem;
+                        background-color: #2d2d2d;
+                        line-height: 1.5;
+                    }
+                }
+            }
+
+            .faq-cta {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+
+                .cta-text {
+                    font-size: 1.25rem;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+
+@media (max-width: 960px) {
+    .faq-section {
+        padding: 50px 20px;
+
+        .faq-container {
+            h2 {
+                font-size: 2rem;
+            }
+
+            .faq-list {
+                details {
+                    summary {
+                        font-size: 1.25rem;
+                        padding: 16px;
+                    }
+                    .faq-content {
+                        font-size: 1.25rem;
+                        padding: 16px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Modal Styles
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #141414;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #555;
+        border-radius: 4px;
+    }
+}
+
+.close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: background 0.2s;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+}
+
+.modal-video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: black;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    overflow: hidden;
+}
+
+.modal-info {
+    padding: 32px;
+
+    .modal-title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        color: #e5b10b; // Matches the yellow logo in screenshot roughly
+    }
+
+    .modal-tags {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+
+        .tag {
+            background: #333;
+            color: #ddd;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+    }
+
+    .modal-desc {
+        font-size: 1.1rem;
+        line-height: 1.5;
+        margin-bottom: 32px;
+        color: #ccc;
+    }
+
+    .modal-btn {
+        border-radius: 4px;
+        font-size: 1.2rem;
+        padding: 8px 24px;
     }
 }

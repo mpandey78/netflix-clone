@@ -14,8 +14,8 @@
         </div>
 
         <div class="hero-content">
-            <h1>Unlimited movies, TV shows and more</h1>
-            <p class="subtitle">Watch anywhere. Cancel anytime.</p>
+            <h1>Thrills. It is all here.</h1>
+            <p class="subtitle">Starts at ₹149. Cancel at any time.</p>
             <p class="cta-text">Ready to watch? Enter your email to create or restart your membership.</p>
 
             <div class="email-form">
@@ -44,9 +44,10 @@
 
             <div class="movie-row">
                 @for (movie of trendingMovies$ | async; track movie.id; let i = $index) {
-                <div class="trending-card">
+                <div class="trending-card" (click)="openModal(movie)">
+                    <div class="n-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="N"></div>
                     <span class="rank-number">{{ i + 1 }}</span>
-                    <img [src]="movie.thumbnailUrl" [alt]="movie.title">
+                    <img class="poster-img" [src]="movie.thumbnailUrl" [alt]="movie.title">
                 </div>
                 }
             </div>
@@ -70,4 +71,113 @@
             </div>
         </div>
     </section>
+
+    <section class="promo reverse">
+        <div class="promo-container">
+            <div class="promo-text">
+                <h2>Download your shows to watch offline</h2>
+                <p>Save your favourites easily and always have something to watch.</p>
+            </div>
+            <div class="promo-img">
+                <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/mobile-0819.jpg" alt="Mobile">
+            </div>
+        </div>
+    </section>
+
+    <section class="promo">
+        <div class="promo-container">
+            <div class="promo-text">
+                <h2>Watch everywhere</h2>
+                <p>Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.</p>
+            </div>
+            <div class="promo-img">
+                <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/device-pile-in.png" alt="Devices">
+            </div>
+        </div>
+    </section>
+
+    <section class="promo reverse">
+        <div class="promo-container">
+            <div class="promo-text">
+                <h2>Create profiles for kids</h2>
+                <p>Send children on adventures with their favourite characters in a space made just for them—free with your membership.</p>
+            </div>
+            <div class="promo-img">
+                <img src="https://occ-0-3752-360.1.nflxso.net/dnm/api/v6/19OhWN2dO19C9txTON9tvTFtefw/AAAABVr8nYuAg0xDpXDv0VI9CUHL5pnRo5VDjq5X4x2U6rL8k_Ea2Zf9u_J1Xk4-t2-fQ-1zE6n_R0U-x-X6UfQeQx-_E02R.png?r=fcd" alt="Kids">
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <details>
+                    <summary>What is Netflix? <i class="bi bi-plus-lg"></i></summary>
+                    <div class="faq-content">
+                        <p>Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries and more – on thousands of internet-connected devices.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>How much does Netflix cost? <i class="bi bi-plus-lg"></i></summary>
+                    <div class="faq-content">
+                        <p>Watch Netflix on your smartphone, tablet, Smart TV, laptop, or streaming device, all for one fixed monthly fee.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Where can I watch? <i class="bi bi-plus-lg"></i></summary>
+                    <div class="faq-content">
+                        <p>Watch anywhere, anytime. Sign in with your Netflix account to watch instantly on the web at netflix.com from your personal computer or on any internet-connected device.</p>
+                    </div>
+                </details>
+                <details>
+                    <summary>Is Netflix good for kids? <i class="bi bi-plus-lg"></i></summary>
+                    <div class="faq-content">
+                        <p>The Netflix Kids experience is included in your membership to give parents control while kids enjoy family-friendly TV shows and movies in their own space.</p>
+                    </div>
+                </details>
+            </div>
+
+            <div class="faq-cta">
+                <p class="cta-text">Ready to watch? Enter your email to create or restart your membership.</p>
+                <div class="email-form">
+                    <div class="input-container">
+                        <input type="email" placeholder="Email address" required>
+                        <label>Email address</label>
+                    </div>
+                    <button (click)="onGetStarted()" class="get-started-btn">
+                        Get Started <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="disclaimer">
+        <p>This site is a clone, not for selling, and is used to avoid any types of copyrights.</p>
+    </div>
 </div>
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="selectedMovie" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="closeModal()"><i class="bi bi-x-lg"></i></button>
+        <div class="modal-video">
+            <app-promo-player [url]="selectedMovie.videoUrl"></app-promo-player>
+        </div>
+        <div class="modal-info">
+            <h2 class="modal-title">{{ selectedMovie.title }}</h2>
+            <div class="modal-tags">
+                <span class="tag year">{{ selectedMovie.releaseDate | date:'yyyy' }}</span>
+                <span class="tag rating">U/A 16+</span>
+                <span class="tag type">{{ selectedMovie.type === 'movie' ? 'Movie' : 'Series' }}</span>
+                <span class="tag genre" *ngFor="let g of selectedMovie.genre">{{ g }}</span>
+            </div>
+            <p class="modal-desc">{{ selectedMovie.description }}</p>
+            <button class="get-started-btn modal-btn" (click)="onGetStarted()">
+                Get Started <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
